@@ -259,6 +259,10 @@ nbg-419n2)
 	set_usb_led "$board:green:usb"
 	set_wifi_led "rt2800pci-phy0::radio"
 	;;
+iptime,extn3)
+	ucidef_set_led_default "status" "status" "$board:red:status" "0"
+	ucidef_set_led_wlan "wlan" "wlan" "$board:blue:status" "phy0tpt"
+	;;
 newifi-d1)
 	set_usb_led "$board:red:status"
 	;;

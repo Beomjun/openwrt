@@ -289,6 +289,9 @@ ramips_board_detect() {
 	*"MiWiFi Nano")
 		name="miwifi-nano"
 		;;
+	*"ipTIME Extender-N3")
+		name="extn3"
+		;;
 	*"MLW221")
 		name="mlw221"
 		;;

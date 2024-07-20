@@ -11,6 +11,15 @@ define Device/mt7628
 endef
 TARGET_DEVICES += mt7628
 
+define Device/iptime-extn3
+  DTS := IPTIME-EXTN3
+  UIMAGE_NAME := extn3
+  IMAGE_SIZE := 3840k
+  DEVICE_TITLE := ipTIME Extender-N3
+  DEVICE_PACKAGES += kmod-mt76x2
+endef
+TARGET_DEVICES += iptime-extn3
+
 define Device/miwifi-nano
   DTS := MIWIFI-NANO
   IMAGE_SIZE := $(ralink_default_fw_size_16M)

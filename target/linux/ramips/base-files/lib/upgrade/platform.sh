@@ -92,6 +92,7 @@ platform_check_image() {
 	mpr-a2|\
 	mr-102n|\
 	mt7628|\
+	iptime,extn3|\
 	mzk-750dhp|\
 	mzk-dp150n|\
 	mzk-ex300np|\
