@@ -17,6 +17,21 @@ define Build/append-dlink-covr-metadata
 	rm $@metadata.tmp
 endef
 
+define Build/append-netis-n6-metadata
+	( echo -ne '{ \
+		"up_model": "Netis-N6R", \
+		"supported_devices": ["mt7621-rfb-ax-nand"], \
+		"version": { \
+			"dist": "$(call json_quote,$(VERSION_DIST))", \
+			"version": "$(call json_quote,$(VERSION_NUMBER))", \
+			"revision": "$(call json_quote,$(REVISION))", \
+			"board": "$(call json_quote,$(BOARD))" \
+		} }' \
+	) > $@.metadata.tmp
+	fwtool -I $@.metadata.tmp $@
+	rm $@.metadata.tmp
+endef
+
 define Build/arcadyan-trx
 	echo -ne "hsqs" > $@.hsqs
 	$(eval trx_magic=$(word 1,$(1)))
@@ -1943,6 +1958,23 @@ define Device/netgear_wndr3700-v5
 endef
 TARGET_DEVICES += netgear_wndr3700-v5
 
+define Device/netis_n6
+  $(Device/dsa-migration)
+  $(Device/nand)
+  IMAGE_SIZE := 121344k
+  DEVICE_VENDOR := netis
+  DEVICE_MODEL := N6
+  KERNEL_LOADADDR := 0x82000000
+  KERNEL := kernel-bin | relocate-kernel $(loadaddr-y) | lzma | \
+	fit lzma $$(KDIR)/image-$$(firstword $$(DEVICE_DTS)).dtb
+  IMAGES += factory.bin
+  IMAGE/factory.bin := append-kernel | pad-to $$(KERNEL_SIZE) | \
+	append-ubi | check-size | append-netis-n6-metadata
+  DEVICE_PACKAGES += kmod-mt7915-firmware kmod-usb-ledtrig-usbport \
+	kmod-usb3
+endef
+TARGET_DEVICES += netis_n6
+
 define Device/netis_wf2881
   $(Device/nand)
   $(Device/uimage-lzma-loader)
@@ -2068,6 +2100,7 @@ TARGET_DEVICES += sercomm_na502
 
 define Device/sercomm_na502s
   $(Device/nand)
+  $(Device/uimage-lzma-loader)
   IMAGE_SIZE := 20971520
   DEVICE_VENDOR := SERCOMM
   DEVICE_MODEL := NA502S
@@ -2327,7 +2360,6 @@ define Device/tplink_er605-v2
   KERNEL_IN_UBI := 1
   KERNEL_LOADADDR := 0x82000000
   KERNEL := kernel-bin | relocate-kernel 0x80001000 | lzma | fit lzma $$(KDIR)/image-$$(firstword $$(DEVICE_DTS)).dtb
-  IMAGES += sysupgrade.tar
   IMAGE_SIZE := 127744k
 endef
 TARGET_DEVICES += tplink_er605-v2
@@ -2454,7 +2486,7 @@ TARGET_DEVICES += ubnt_edgerouter-x-sfp
 define Device/ubnt_unifi-6-lite
   $(Device/dsa-migration)
   DEVICE_VENDOR := Ubiquiti
-  DEVICE_MODEL := UniFi 6 Lite
+  DEVICE_MODEL := UniFi U6 Lite
   DEVICE_DTS_CONFIG := config@1
   DEVICE_DTS_LOADADDR := 0x87000000
   DEVICE_PACKAGES += kmod-mt7603 kmod-mt7915-firmware -uboot-envtools

@@ -27,7 +27,7 @@ Signed-off-by: Jakub Kicinski <kuba@kernel.org>
  static void stmmac_tx_timer_arm(struct stmmac_priv *priv, u32 queue);
  static void stmmac_flush_tx_descriptors(struct stmmac_priv *priv, int queue);
  
-@@ -1713,9 +1716,6 @@ static int __init_dma_rx_desc_rings(stru
+@@ -1715,9 +1718,6 @@ static int __init_dma_rx_desc_rings(stru
  			return -ENOMEM;
  	}
  
@@ -37,7 +37,7 @@ Signed-off-by: Jakub Kicinski <kuba@kernel.org>
  	/* Setup the chained descriptor addresses */
  	if (priv->mode == STMMAC_CHAIN_MODE) {
  		if (priv->extend_desc)
-@@ -1821,12 +1821,6 @@ static int __init_dma_tx_desc_rings(stru
+@@ -1823,12 +1823,6 @@ static int __init_dma_tx_desc_rings(stru
  		tx_q->tx_skbuff[i] = NULL;
  	}
  
@@ -50,7 +50,7 @@ Signed-off-by: Jakub Kicinski <kuba@kernel.org>
  	return 0;
  }
  
-@@ -2695,10 +2689,7 @@ static void stmmac_tx_err(struct stmmac_
+@@ -2697,10 +2691,7 @@ static void stmmac_tx_err(struct stmmac_
  	stmmac_stop_tx_dma(priv, chan);
  	dma_free_tx_skbufs(priv, chan);
  	stmmac_clear_tx_descriptors(priv, chan);
@@ -62,7 +62,7 @@ Signed-off-by: Jakub Kicinski <kuba@kernel.org>
  	stmmac_init_tx_chan(priv, priv->ioaddr, priv->plat->dma_cfg,
  			    tx_q->dma_tx_phy, chan);
  	stmmac_start_tx_dma(priv, chan);
-@@ -3783,6 +3774,8 @@ static int stmmac_open(struct net_device
+@@ -3786,6 +3777,8 @@ static int stmmac_open(struct net_device
  		}
  	}
  
