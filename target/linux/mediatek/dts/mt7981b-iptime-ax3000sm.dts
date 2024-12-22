@@ -9,12 +9,15 @@
 	compatible = "iptime,ax3000sm", "mediatek,mt7981-spim-snand-rfb";
 	
 	aliases {
+		led-boot = &led_cpu;
+		led-failsafe = &led_cpu;
+		led-running = &led_cpu;
+		led-upgrade = &led_cpu;
 		serial0 = &uart0;
 	};
 	
 	chosen {
-		bootargs-override = "console=ttyS0,115200n8";
-		stdout-path = "serial0:115200n8";
+		bootargs = "console=ttyS0,115200";
 	};
 	
 	gpio-keys {
@@ -35,6 +38,11 @@
 	
 	leds {
 		compatible = "gpio-leds";
+		
+		led_cpu: cpu {
+			function = LED_FUNCTION_CPU;
+			gpios = <&pio 15 GPIO_ACTIVE_LOW>;
+		};
 		
 		wlan2g {
 			color = <LED_COLOR_ID_ORANGE>;
@@ -57,7 +65,7 @@
 	pinctrl-names = "default";
 	pinctrl-0 = <&spi0_flash_pins>;
 	
-	spi_nand: spi_nand@0 {
+	spi_nand@0 {
 		compatible = "spi-nand";
 		#address-cells = <1>;
 		#size-cells = <1>;
