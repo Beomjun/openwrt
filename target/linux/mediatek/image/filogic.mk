@@ -509,22 +509,21 @@ endef
 TARGET_DEVICES += h3c_magic-nx30-pro
 
 define Device/iptime_ax3000sm
-  UIMAGE_NAME := ax3ksm
   BOARD_NAME := mt7981-AX3000
   DEVICE_VENDOR := ipTIME
   DEVICE_MODEL := AX3000SM
   DEVICE_DTS := mt7981b-iptime-ax3000sm
   DEVICE_DTS_DIR := ../dts
-  UBINIZE_OPTS := -E 5
   BLOCKSIZE := 128k
   PAGESIZE := 2048
-  KERNEL_IN_UBI := 1
   IMAGE_SIZE := 114688k
-  IMAGES += factory.bin
-  IMAGE/factory.bin := append-kernel | append-rootfs | iptime-crc32 ax3ksm
-  IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata | iptime-crc32 ax3ksm
-  SUPPORTED_DEVICES += mediatek,mt7981-spim-snand-rfb
-  DEVICE_PACKAGES := kmod-usb3 kmod-mt7981-firmware mt7981-wo-firmware
+  KERNEL := kernel-bin | lzma | \
+            fit lzma $$(KDIR)/image-$$(firstword $$(DEVICE_DTS)).dtb
+  KERNEL_INITRAMFS := kernel-bin | lzma | \
+        fit lzma $$(KDIR)/image-$$(firstword $$(DEVICE_DTS)).dtb with-initrd | pad-to 64k
+  IMAGES := factory.bin
+  IMAGE/factory.bin := sysupgrade-tar | append-metadata | check-size | iptime-crc32 ax3ksm
+  DEVICE_PACKAGES := kmod-mt7981-firmware mt7981-wo-firmware
 endef
 TARGET_DEVICES += iptime_ax3000sm
 

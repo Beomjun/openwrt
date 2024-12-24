@@ -135,6 +135,10 @@ platform_do_upgrade() {
 		CI_KERNPART="fit"
 		nand_do_upgrade "$1"
 		;;
+	iptime,ax3000sm)
+		CI_UBIPART="ubi"
+		nand_do_upgrade "$1"
+		;;
 	jdcloud,re-cp-03)
 		CI_KERNPART="production"
 		emmc_do_upgrade "$1"
