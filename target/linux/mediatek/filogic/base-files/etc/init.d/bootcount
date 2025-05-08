@@ -5,6 +5,13 @@ START=99
 
 boot() {
 	case $(board_name) in
+	iptime,ax3000sm)
+		if grep -q rootfs2 /proc/cmdline; then
+			fw_setenv boot_from B
+		else
+			fw_setenv boot_from A
+		fi
+		;;
 	xiaomi,mi-router-ax3000t)
 		. /lib/upgrade/common.sh
 		[ "$(rootfs_type)" = "tmpfs" ] && \
