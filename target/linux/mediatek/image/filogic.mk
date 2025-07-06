@@ -1004,7 +1004,7 @@ define Device/iptime_ax3000sm
         fit lzma $$(KDIR)/image-$$(firstword $$(DEVICE_DTS)).dtb with-initrd | pad-to 64k
   IMAGES := factory.bin
   IMAGE/factory.bin := sysupgrade-tar | append-metadata | check-size | iptime-crc32 ax3ksm
-  DEVICE_PACKAGES := kmod-mt7915e kmod-mt7981-firmware mt7981-wo-firmware mitmproxy
+  DEVICE_PACKAGES := kmod-mt7915e kmod-mt7915-firmware kmod-mt7981-firmware mt7981-wo-firmware mitmproxy
 endef
 TARGET_DEVICES += iptime_ax3000sm
 
