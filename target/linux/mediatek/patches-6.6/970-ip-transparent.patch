@@ -1,0 +1,15 @@
+--- a/net/ipv4/Kconfig
++++ b/net/ipv4/Kconfig
+@@ -752,3 +752,12 @@
+ 	  on the Internet.
+
+ 	  If unsure, say N.
++
++config IP_TRANSPARENT
++	bool "IP transparent proxying"
++	default y
++	help
++	  Enable support for IP_TRANSPARENT socket option, which allows
++	  transparent proxying using TPROXY in Netfilter and raw sockets.
++	  This is required for user-space transparent proxies such as mitmproxy
++	  or haproxy to receive redirected traffic.
