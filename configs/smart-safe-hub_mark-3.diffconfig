@@ -1,0 +1,15 @@
+CONFIG_TARGET_x86=y
+CONFIG_TARGET_x86_64=y
+CONFIG_TARGET_x86_64_DEVICE_smart-safe-hub_mark-3=y
+CONFIG_PACKAGE_cgi-io=y
+CONFIG_PACKAGE_liblucihttp=y
+CONFIG_PACKAGE_liblucihttp-ucode=y
+CONFIG_PACKAGE_luci-app-safeshield=y
+CONFIG_PACKAGE_luci-base=y
+CONFIG_PACKAGE_rpcd=y
+CONFIG_PACKAGE_rpcd-mod-file=y
+CONFIG_PACKAGE_rpcd-mod-luci=y
+CONFIG_PACKAGE_rpcd-mod-ucode=y
+CONFIG_PACKAGE_ucode-mod-html=y
+CONFIG_PACKAGE_ucode-mod-math=y
+CONFIG_TARGET_ROOTFS_PARTSIZE=256
